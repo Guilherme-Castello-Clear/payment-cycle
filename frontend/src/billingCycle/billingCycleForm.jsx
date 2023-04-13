@@ -18,7 +18,7 @@ class BillingCycleForm extends Component {
                     <Field name='year' label='Ano' cols='12 4' placeholder='Infrome o ano' type='number' component={labelAndInput} readOnly={readOnly}></Field>
                 </div>
                 <div className="box-footer">
-                    <button className="btn btn-primary" type='submit'>Submit</button>
+                    <button className={`btn btn-${this.props.submitClass}`} type='submit'>{this.props.submitLabel}</button>
                     <button className="btn btn-default" onClick={this.props.init} type='button'>Cancelar</button>
                 </div>
             </form>
