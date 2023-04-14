@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { reduxForm, Field } from 'redux-form'
+import { reduxForm, Field, formValueSelector } from 'redux-form'
 import { init } from './billingCycleActions';
 import labelAndInput from '../common/form/labelAndInput';
 import CreditList from './creditList'
+import { ready } from 'jquery';
 
 class BillingCycleForm extends Component {
     
     render(){
 
-        const { handleSubmit, readOnly } = this.props
+        const { handleSubmit, readOnly, credits } = this.props
+        console.log(credits)
         return(
             <form role='form' onSubmit={handleSubmit}>
                 <div className="box-body">
                     <Field name='name' label='Nome' cols='12 4' placeholder='Infrome o nome' component={labelAndInput} readOnly={readOnly}></Field>
                     <Field name='month' label='Mês' cols='12 4' placeholder='Infrome o mês' type='number' component={labelAndInput} readOnly={readOnly}></Field>
                     <Field name='year' label='Ano' cols='12 4' placeholder='Infrome o ano' type='number' component={labelAndInput} readOnly={readOnly}></Field>
-                    <CreditList cols='12 6'></CreditList>
+                    <CreditList cols='12 6' list={credits} readOnly={readOnly}></CreditList>
                 </div>
                 <div className="box-footer">
                     <button className={`btn btn-${this.props.submitClass}`} type='submit'>{this.props.submitLabel}</button>
@@ -29,7 +31,11 @@ class BillingCycleForm extends Component {
 }
 
 BillingCycleForm = reduxForm({form: 'billingCycleForm', destroyOnUnmount: false})(BillingCycleForm)
+const selector = formValueSelector('billingCycleForm')
 
+const mapStateToProps = state => ({
+    credits: selector(state, 'credits')
+})
 const mapDispatchToProps = dispatch => bindActionCreators({init}, dispatch)
 
-export default connect(null, mapDispatchToProps)(BillingCycleForm)
+export default connect(mapStateToProps, mapDispatchToProps)(BillingCycleForm)
