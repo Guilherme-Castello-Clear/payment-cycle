@@ -3,20 +3,21 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Field, arrayInsert, arrayRemove } from 'redux-form'
 import Input from '../common/form/input'
+import If from '../common/operador/if'
 
 import Grid from '../common/layout/grid'
 
-class CreditList extends Component {
+class ItemList extends Component {
 
     add(index, item = {}){
         if(!this.props.readOnly){
-            this.props.arrayInsert('billingCycleForm', 'credits', index, item)
+            this.props.arrayInsert('billingCycleForm', this.props.field, index, item)
         }
     }
 
     remove(index){
         if(!this.props.readOnly && this.props.list.length > 1){
-            this.props.arrayRemove('billingCycleForm', 'credits', index)
+            this.props.arrayRemove('billingCycleForm', this.props.field, index)
         }
     }
 
@@ -26,9 +27,11 @@ class CreditList extends Component {
         return list.map((item, index) => (
             <tr key={index}>
                 {console.log(list[index].name)}
-                <td><Field name={`credits[${index}].name`} placeholder="Informe o nome" readOnly={this.props.readOnly} component={Input} /></td>
-                <td><Field name={`credits[${index}].value`} placeholder="Informe o nome" readOnly={this.props.readOnly} component={Input} /></td>
-
+                <td><Field name={`${this.props.field}[${index}].name`} placeholder="Informe o nome" readOnly={this.props.readOnly} component={Input} /></td>
+                <td><Field name={`${this.props.field}[${index}].value`} placeholder="Informe o nome" readOnly={this.props.readOnly} component={Input} /></td>
+                <If test={this.props.showStatus}>
+                    <td><Field name={`${this.props.field}[${index}].status`} placeholder="Informe o status" readOnly={this.props.readOnly} component={Input} /></td>
+                </If>
                 <td>
                     <button type='button' onClick={() => this.add(index + 1)} className='btn btn-success'>
                         <i className="fa fa-plus"></i>
@@ -48,12 +51,15 @@ class CreditList extends Component {
         return(
             <Grid cols={this.props.cols}>
                 <fieldset>
-                    <legend>Créditos</legend>
+                    <legend>{this.props.legend}</legend>
                     <table className='table'>
                         <thead>
                             <tr>
                                 <th>Nome</th>
                                 <th>Valor</th>
+                                <If test={this.props.showStatus}>
+                                    <th>Status</th>
+                                </If>
                                 <th className='table-actions'>Ações</th>
                             </tr>
                         </thead>
@@ -69,4 +75,4 @@ class CreditList extends Component {
 
 
 const mapDispatchToProps = dispatch => bindActionCreators({arrayInsert, arrayRemove}, dispatch)
-export default connect(null, mapDispatchToProps)(CreditList)
+export default connect(null, mapDispatchToProps)(ItemList)
