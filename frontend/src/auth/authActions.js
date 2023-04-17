@@ -18,11 +18,14 @@ function submit(values, url) {
     return dispatch => {
         axios.post(url, values)
             .then(resp => {
+                console.log(resp.data)
                 dispatch([
                     { type: 'USER_FETCHED', payload: resp.data }
                 ])
             })
             .catch(e => {
+                console.log(e)
+
                 e.response.data.errors.forEach(
                     error => toastr.error('Erro', error))
             })
