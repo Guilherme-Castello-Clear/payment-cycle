@@ -5,15 +5,15 @@ import AuthOrApp from "./authOrApp";
 import Dashboard from "../dashboard/dashboard";
 import BillingCycle from "../billingCycle/billingCycle";
 
-import { Router, Route, Redirect, hashHistory,IndexRoute } from 'react-router'
+import { Switch, Route, Redirect } from 'react-router'
+ 
+export default props => (
 
-export default props=>(
-
-    <Router history={hashHistory}>
-        <Route path='/' component={AuthOrApp}>
-            <IndexRoute component={Dashboard}/>
-            <Route path='billingCycles' component={BillingCycle}></Route>
-        </Route>
-        <Redirect from='*' to='/'/>
-    </Router>
+    <div className='content-wrapper'>
+        <Switch>
+            <Route exact path='/' component={Dashboard}></Route>
+            <Route path='/billingCycles' component={BillingCycle}></Route>
+            <Redirect from='*' to='/'></Redirect>
+        </Switch>
+    </div>
 )

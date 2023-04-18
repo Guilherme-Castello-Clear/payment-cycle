@@ -17,6 +17,7 @@ class BillingCycle extends Component{
 
     componentWillMount(){
         this.props.init()
+
     }
 
     render(){

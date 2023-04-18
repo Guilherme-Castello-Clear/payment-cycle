@@ -15,7 +15,7 @@ import Input from '../common/form/inputAuth'
 class Auth extends Component {
 
     constructor(props) {
-        console.log("AAAAAAAAAAAAAAAAAAa")
+
         super(props)
         this.state = { loginMode: true }
     }

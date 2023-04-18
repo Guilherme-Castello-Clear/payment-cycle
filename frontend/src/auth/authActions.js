@@ -18,13 +18,13 @@ function submit(values, url) {
     return dispatch => {
         axios.post(url, values)
             .then(resp => {
-                console.log('Auth Actions'+resp)
+
                 dispatch([
                     { type: 'USER_FETCHED', payload: resp.data }
                 ])
             })
             .catch(e => {
-                console.log('AuthAction'+e)
+
 
                 e.response.data.errors.forEach(
                     error => toastr.error('Erro', error))
