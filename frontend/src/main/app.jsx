@@ -9,8 +9,8 @@ import Messages from '../common/msg/menssages'
 
 export default props => (
     <div className='wrapper'>
-        <Header></Header>
-        <SideBar></SideBar>
+        <Header/>
+        <SideBar/>
         <div className="content-wrapper">
             {props.children}
         </div>
