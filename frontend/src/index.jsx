@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './main/app'
+
 import Routes from "./main/routes"
 import promise from 'redux-promise'
 import multi from 'redux-multi'
